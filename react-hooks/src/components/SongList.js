@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NewSongForm from "./NewSongForm";
 
 
@@ -9,9 +9,16 @@ const SongList = () => {
         { title: 'memory gospel', id: 2 },
         { title: 'this wild darkness', id: 3 },
     ])
-    const addSong = () => {
-        setSongs([{ title: 'new song', id: songs.length + 1}, ...songs])
+    const[age, setAge] = useState(20)
+    const addSong = (title) => {
+        setSongs([{ title: title, id: songs.length + 1}, ...songs])
     }
+    useEffect(() => {
+        console.log('Song list ===>>', songs)
+    }, [songs])
+    useEffect(() => {
+        console.log('Age ===>>', age)
+    }, [age])
     return (
         <div className='song-list'>
             <ul>
@@ -21,7 +28,8 @@ const SongList = () => {
                     ))
                 }
             </ul>
-            <NewSongForm />
+            <NewSongForm addSong={addSong} />
+            <button onClick={() => setAge(age + 1)}>Add 1 to age: {age}</button>
         </div>
     )
 }
